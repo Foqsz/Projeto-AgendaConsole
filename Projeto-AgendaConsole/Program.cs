@@ -36,6 +36,7 @@ class Program
             {
                 Console.WriteLine("Nome: {0} - E-mail: {1}", nome[i], email[i]);
             }
+
             Console.ReadKey(); // Aguarda uma tecla ser pressionada
         }
 
@@ -43,7 +44,9 @@ class Program
 
         #region Inserir Contato
 
-        static void InserirContato(ref String[] nome, ref String[] email, ref int tl) // 'ref' permite passar variáveis por referência, permitindo modificá-las no método
+        static void
+            InserirContato(ref String[] nome, ref String[] email,
+                ref int tl) // 'ref' permite passar variáveis por referência, permitindo modificá-las no método
         {
             try
             {
@@ -61,7 +64,7 @@ class Program
                 {
                     Console.WriteLine("E-mail já cadastrado.");
                     Console.ReadKey();
-                } 
+                }
             }
             catch (Exception e)
             {
@@ -82,11 +85,57 @@ class Program
             {
                 i++;
             }
+
             if (i < tl)
             {
                 pos = i;
             }
+
             return pos;
+        }
+
+        #endregion
+
+        #region Alterar Contato
+
+        static void AlterarContato(ref String[] nome, ref String[] email, ref int tl)
+        {
+            try
+            {
+                Console.WriteLine("Alterar Contato:");
+                Console.Write("E-mail: ");
+                string emailContato = Console.ReadLine();
+                int pos = LocalizarContato(email, tl, emailContato);
+                if (pos != -1)
+                {
+                    Console.WriteLine("Novos dados do Contato:");
+                    Console.Write("Nome: ");
+                    string novoNome = Console.ReadLine();
+                    Console.Write("E-mail: ");
+                    string novoEmail = Console.ReadLine();
+                    int posValidacao = LocalizarContato(email, tl, novoEmail);
+                    if (posValidacao == -1 || posValidacao == pos) // -1 significa que nao achou nada
+                    {
+                        nome[pos] = novoNome;
+                        email[pos] = novoEmail;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Já existe um contato com este e-mail");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Contato não encontrado.");
+                    Console.ReadKey();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                Console.ReadKey(); // Aguarda uma tecla ser pressionada
+            }
         }
 
         #endregion
@@ -119,7 +168,7 @@ class Program
                     InserirContato(ref nome, ref email, ref tl);
                     break;
                 case 3:
-                    //Alterar Contato
+                    AlterarContato(ref nome, ref email, ref tl);
                     break;
                 case 4:
                     //Excluir Contato
