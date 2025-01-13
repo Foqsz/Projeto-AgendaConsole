@@ -19,7 +19,17 @@ class Program
             Console.WriteLine("6 - Sair");
             Console.Write("Opção: ");
             op = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
             return op;
+        }
+
+        static void ExibirContatos(String[] nome, String[] email, int tl)
+        {
+            for (int i = 0; i < tl; i++)
+            {
+                Console.WriteLine("Nome: {0} - E-mail: {1}", nome[i], email[i]);
+            } 
+            Console.ReadKey();
         }
 
         // Armazenamento de dados da agenda
@@ -29,6 +39,18 @@ class Program
         int tl = 0; // Tamanho lógico da agenda
         int op = 0; // Opção do menu
 
+        nome[0] = "João";
+        email[0] = "joao@gmail.com";
+        tl++;
+
+        nome[tl] = "Maria";
+        email[tl] = "maria@gmail.com";
+        tl++;
+
+        nome[tl] = "José";
+        email[tl] = "jose@gmail.com";
+        tl++;
+
         while (op != 6)
         {
             op = ExibirMenu();
@@ -36,7 +58,7 @@ class Program
             switch (op)
             {
                 case 1:
-                    //Exibir Dados
+                    ExibirContatos(nome, email, tl);   
                     break;
                 case 2:
                     //Inserir Contato
