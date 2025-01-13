@@ -25,11 +25,30 @@ class Program
 
         static void ExibirContatos(String[] nome, String[] email, int tl)
         {
+            Console.WriteLine("Exibindo Contatos:");
             for (int i = 0; i < tl; i++)
             {
                 Console.WriteLine("Nome: {0} - E-mail: {1}", nome[i], email[i]);
             } 
-            Console.ReadKey();
+            Console.ReadKey(); // Aguarda uma tecla ser pressionada
+        }
+
+        static void InserirContato(ref String[] nome, ref String[] email, ref int tl) // 'ref' permite passar variáveis por referência, permitindo modificá-las no método
+        {
+            try
+            {
+                Console.WriteLine("Inserir Contato:");
+                Console.Write("Nome: ");
+                nome[tl] = Console.ReadLine();
+                Console.Write("E-mail: ");
+                email[tl] = Console.ReadLine();
+                tl++;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                Console.ReadKey(); // Aguarda uma tecla ser pressionada
+            } 
         }
 
         // Armazenamento de dados da agenda
@@ -39,17 +58,17 @@ class Program
         int tl = 0; // Tamanho lógico da agenda
         int op = 0; // Opção do menu
 
-        nome[0] = "João";
-        email[0] = "joao@gmail.com";
-        tl++;
+        //nome[0] = "João";
+        //email[0] = "joao@gmail.com";
+        //tl++;
 
-        nome[tl] = "Maria";
-        email[tl] = "maria@gmail.com";
-        tl++;
+        //nome[tl] = "Maria";
+        //email[tl] = "maria@gmail.com";
+        //tl++;
 
-        nome[tl] = "José";
-        email[tl] = "jose@gmail.com";
-        tl++;
+        //nome[tl] = "José";
+        //email[tl] = "jose@gmail.com";
+        //tl++;
 
         while (op != 6)
         {
@@ -58,10 +77,10 @@ class Program
             switch (op)
             {
                 case 1:
-                    ExibirContatos(nome, email, tl);   
+                    ExibirContatos(nome, email, tl);
                     break;
                 case 2:
-                    //Inserir Contato
+                    InserirContato(ref nome, ref email, ref tl);
                     break;
                 case 3:
                     //Alterar Contato
