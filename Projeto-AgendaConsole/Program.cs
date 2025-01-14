@@ -29,7 +29,7 @@ class Program
 
         #region Exibir Contatos
 
-        static void ExibirContatos(String[] nome, String[] email, int tl)
+        static void ExibirContatos(string[] nome, string[] email, int tl)
         {
             Console.WriteLine("Exibindo Contatos:");
             for (int i = 0; i < tl; i++)
@@ -45,7 +45,7 @@ class Program
         #region Inserir Contato
 
         static void
-            InserirContato(ref String[] nome, ref String[] email,
+            InserirContato(ref string[] nome, ref string[] email,
                 ref int tl) // 'ref' permite passar variáveis por referência, permitindo modificá-las no método
         {
             try
@@ -77,7 +77,7 @@ class Program
 
         #region Localizar Contato
 
-        static int LocalizarContato(String[] email, int tl, String emailContato)
+        static int LocalizarContato(string[] email, int tl, string emailContato)
         {
             int pos = -1;
             int i = 0;
@@ -98,7 +98,7 @@ class Program
 
         #region Alterar Contato
 
-        static void AlterarContato(ref String[] nome, ref String[] email, ref int tl)
+        static void AlterarContato(ref string[] nome, ref string[] email, ref int tl)
         {
             try
             {
@@ -140,16 +140,36 @@ class Program
 
         #endregion
 
+        static bool ExcluirContato(ref string[] nome, ref string[] email, ref int tl, string emailContato)
+        {
+            bool excluido = false;
+            int pos = -1;
+            pos = LocalizarContato(email, tl, emailContato);
+            if (pos != -1)
+            {
+                for (int i = pos; i < tl - 1; i++)
+                {
+                    nome[i] = nome[i + 1];
+                    email[i] = email[i + 1];
+                }
+                excluido = true;
+                tl--;
+            }
+            return excluido;
+        }
+
         #region Dados
 
         // Armazenamento de dados da agenda
-        String[] nome = new string[200];
-        String[] email = new string[200];
+        string[] nome = new string[200];
+        string[] email = new string[200];
 
         int tl = 0; // Tamanho lógico da agenda
         int op = 0; // Opção do menu
 
-        String emailLocalizar = "";
+        int pos = 0;
+
+        string emailLocalizar = "";
 
         #endregion
 
@@ -171,13 +191,24 @@ class Program
                     AlterarContato(ref nome, ref email, ref tl);
                     break;
                 case 4:
-                    //Excluir Contato
+                    Console.WriteLine("Excluir Contato:");
+                    Console.Write("E-mail: ");
+                    emailLocalizar = Console.ReadLine();
+                    if (ExcluirContato(ref nome, ref email, ref tl, emailLocalizar))
+                    {
+                        Console.WriteLine("Contato excluído com sucesso.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Contato não localizado.");
+                    }
+                    Console.ReadKey();
                     break;
                 case 5:
                     Console.WriteLine("Localizar Contato:");
                     Console.Write("E-mail: ");
                     emailLocalizar = Console.ReadLine();
-                    int pos = LocalizarContato(email, tl, emailLocalizar);
+                    pos = LocalizarContato(email, tl, emailLocalizar);
                     if (pos != -1)
                     {
                         Console.WriteLine("Nome: {0} - E-mail: {1}", nome[pos], email[pos]);
