@@ -45,9 +45,7 @@ class Program
 
         #region Inserir Contato
 
-        static void
-            InserirContato(ref string[] nome, ref string[] email,
-                ref int tl) // 'ref' permite passar variáveis por referência, permitindo modificá-las no método
+        static void InserirContato(ref string[] nome, ref string[] email, ref int tl) // 'ref' permite passar variáveis por referência, permitindo modificá-las no método
         {
             try
             {
@@ -178,11 +176,13 @@ class Program
         string[] email = new string[200];
 
         int tl = 0; // Tamanho lógico da agenda
-        int op = 0; // Opção do menu
-
+        int op = 0; // Opção do menu 
         int pos = 0;
 
         string emailLocalizar = "";
+
+        BackupAgenda.nomeArquivo = "agenda.txt";
+        BackupAgenda.RestaurarDados(ref nome, ref email, ref tl);
 
         #endregion
 
@@ -234,6 +234,7 @@ class Program
                     break;
             }
         }
+        BackupAgenda.SalvarDados(ref nome, ref email, ref tl);
         #endregion
     }
 }
