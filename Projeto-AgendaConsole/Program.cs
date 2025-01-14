@@ -35,6 +35,7 @@ class Program
             for (int i = 0; i < tl; i++)
             {
                 Console.WriteLine("Nome: {0} - E-mail: {1}", nome[i], email[i]);
+                Console.WriteLine("Lista de contato exibida com sucesso.");
             }
 
             Console.ReadKey(); // Aguarda uma tecla ser pressionada
@@ -50,19 +51,27 @@ class Program
         {
             try
             {
-                Console.WriteLine("Inserir Contato:");
-                Console.Write("Nome: ");
-                nome[tl] = Console.ReadLine();
-                Console.Write("E-mail: ");
-                email[tl] = Console.ReadLine();
-                int pos = LocalizarContato(email, tl, email[tl]);
-                if (pos == -1)
+                if (tl >= 200)
                 {
-                    tl++;
+                    Console.WriteLine("Agenda cheia.");
                 }
                 else
                 {
-                    Console.WriteLine("E-mail já cadastrado.");
+                    Console.WriteLine("Inserir Contato:");
+                    Console.Write("Nome: ");
+                    nome[tl] = Console.ReadLine();
+                    Console.Write("E-mail: ");
+                    email[tl] = Console.ReadLine();
+                    int pos = LocalizarContato(email, tl, email[tl]);
+                    if (pos == -1)
+                    {
+                        tl++;
+                        Console.WriteLine("Contato cadastrado com sucesso.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("E-mail já cadastrado.");
+                    }
                     Console.ReadKey();
                 }
             }
@@ -118,12 +127,14 @@ class Program
                     {
                         nome[pos] = novoNome;
                         email[pos] = novoEmail;
+                        Console.WriteLine("Contato alterado com sucesso.");
                     }
                     else
                     {
                         Console.WriteLine("Já existe um contato com este e-mail");
-                        Console.ReadKey();
+
                     }
+                    Console.ReadKey();
                 }
                 else
                 {
@@ -137,8 +148,9 @@ class Program
                 Console.ReadKey(); // Aguarda uma tecla ser pressionada
             }
         }
-
         #endregion
+
+        #region Excluir Contato
 
         static bool ExcluirContato(ref string[] nome, ref string[] email, ref int tl, string emailContato)
         {
@@ -157,6 +169,7 @@ class Program
             }
             return excluido;
         }
+        #endregion
 
         #region Dados
 
@@ -221,7 +234,6 @@ class Program
                     break;
             }
         }
-
         #endregion
     }
 }
